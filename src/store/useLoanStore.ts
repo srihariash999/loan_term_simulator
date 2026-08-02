@@ -4,12 +4,8 @@ import type { Loan, TimelineEvent } from '../types'
 import { calculateEmi } from '../lib/calculations'
 
 const id = () => crypto.randomUUID()
-const starter: Loan = { id: 'demo-loan', name: 'Dream Home', bankName: 'State Bank of India', loanType: 'floating', amount: 5_000_000, startDate: '2025-03-01', tenureMonths: 240, initialRate: 8.45, scheduledEmi: calculateEmi(5_000_000, 8.45, 240), actualEmi: calculateEmi(5_000_000, 8.45, 240), processingFee: 7500, insuranceCharges: 0 }
-const starterEvents: TimelineEvent[] = [
-  { id: 'rate-apr', type: 'rate-change', date: '2025-04-15', rate: 8.20 },
-  { id: 'rate-dec', type: 'rate-change', date: '2025-12-01', rate: 7.70 },
-  { id: 'prepay', type: 'prepayment', date: '2027-01-01', amount: 500000, strategy: 'reduce-tenure' }
-]
+const starter: Loan = { id: 'demo-loan', name: 'Dream Home', bankName: 'State Bank of India', loanType: 'floating', amount: 0, startDate: '2025-03-01', tenureMonths: 0, initialRate: 0, scheduledEmi: 0, actualEmi: 0, processingFee: 0, insuranceCharges: 0 }
+const starterEvents: TimelineEvent[] = []
 export type ThemeMode = 'system' | 'light' | 'dark'
 type Store = { loan: Loan; events: TimelineEvent[]; themeMode: ThemeMode; scenario: TimelineEvent[]; updateLoan: (x: Partial<Loan>) => void; addEvent: (e: Omit<TimelineEvent, 'id'>, scenario?: boolean) => void; removeEvent: (id: string, scenario?: boolean) => void; setThemeMode: (mode: ThemeMode) => void; clearScenario: () => void; importData: (data: { loan: Loan; events: TimelineEvent[] }) => void }
 export const useLoanStore = create<Store>()(persist((set) => ({
